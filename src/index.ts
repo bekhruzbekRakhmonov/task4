@@ -39,7 +39,7 @@ app.use(
 v1Router.use('/users', authenticateToken, userRouter)
 v1Router.use('/auth', authRouter)
 
-app.use('/api', v1Router)
+app.use('/task4/api', v1Router)
 
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`)

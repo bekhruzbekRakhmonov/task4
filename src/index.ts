@@ -17,7 +17,7 @@ const v1Router = express.Router()
 
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: process.env.ORIGIN,
     }),
 )
 app.use(express.json())

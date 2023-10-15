@@ -29,18 +29,17 @@ export async function findAll(
     page: number = 1,
     pageSize: number = 10,
 ): Promise<User[]> {
-    const offset = (page - 1) * pageSize
+    const offset = (page - 1) * pageSize;
 
     try {
-        const [results, fields] = await pool.execute<UserRow[]>(
-            'SELECT * FROM users LIMIT ?, ?',
-            [offset, pageSize],
-        )
-        return results
+        const query = `SELECT * FROM users LIMIT ${offset}, ${pageSize}`;
+        const [results, fields] = await pool.query<UserRow[]>(query);
+        return results;
     } catch (error) {
-        throw error
+        throw error;
     }
 }
+
 
 export async function findByEmail(email: string): Promise<User | null> {
     try {

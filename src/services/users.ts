@@ -33,7 +33,7 @@ export async function findAll(
 
     try {
         const [results, fields] = await pool.execute<UserRow[]>(
-            'SELECT * FROM users LIMIT ? OFFSET ?',
+            'SELECT * FROM users LIMIT ? OFFSET ?;',
             [pageSize, offset],
         )
         return results

@@ -5,8 +5,10 @@ import RequestWithUser from '../interfaces/requestWithUser';
 import { deleteUserValidator, editUsersValidator, isValidRegion } from '../validators/users';
 import { validationResult } from 'express-validator';
 import { generateErrors } from '../services/users';
+import { RandomUser } from '../interfaces/randomUser';
 
 const router: Router = express.Router()
+const RANDOMUSER_API_URL: string = 'https://randomuser.me/api/'
 
 router.get(
     '/',
@@ -79,25 +81,6 @@ router.post(
     },
 )
 
-const RANDOMUSER_API_URL: string = 'https://randomuser.me/api/'
-
-interface User {
-    login: {
-        uuid: string
-    }
-    name: {
-        first: string
-        last: string
-    }
-    location: {
-        street: {
-            name: string
-        }
-        city: string
-        country: string
-    }
-    phone: string
-}
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     const { region, errors, seed, page } = req.query as {
@@ -108,7 +91,6 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     }
 
     try {
-        res.header('Cache-Control', 'no-store, max-age=0')
         if (isValidRegion(region)) {
             return res
                 .status(400)
@@ -123,7 +105,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
             name: string
             address: string
             phone: string
-        }> = (response.data.results as User[]).map((user: User) => ({
+        }> = (response.data.results as RandomUser[]).map((user: RandomUser) => ({
             randomIdentifier: user.login.uuid,
             name: `${user.name.first} ${user.name.last}`,
             address: `${user.location.street.name}, ${user.location.city}, ${user.location.country}`,

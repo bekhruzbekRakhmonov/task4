@@ -15,9 +15,11 @@ const port = process.env.PORT || 3000
 
 const v1Router = express.Router()
 
+const allowedOrigins = [process.env.ORIGIN1, process.env.ORIGIN2];
+
 app.use(
     cors({
-        origin: process.env.ORIGIN,
+        origin: allowedOrigins,
     }),
 )
 app.use(express.json())

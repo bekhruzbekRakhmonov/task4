@@ -82,7 +82,7 @@ router.post(
 )
 
 
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/generate-data', async (req: Request, res: Response, next: NextFunction) => {
     const { region, errors, seed, page } = req.query as {
         region: string
         errors: string

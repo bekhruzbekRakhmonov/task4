@@ -6,7 +6,6 @@ import { deleteUserValidator, editUsersValidator, isValidRegion } from '../valid
 import { validationResult } from 'express-validator';
 import { generateErrors } from '../services/users';
 import { RandomUser } from '../interfaces/randomUser';
-import HttpException from '../exceptions/http-exception';
 
 const router: Router = express.Router()
 const RANDOMUSER_API_URL: string = 'https://randomuser.me/api/'

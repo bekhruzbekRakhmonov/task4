@@ -93,10 +93,10 @@ router.get('/generate-data', async (req: Request, res: Response, next: NextFunct
 
     try {
         if (parseInt(errors) > 30) {
-            throw new HttpException(422, 'Error amount limit is 30');
+            return res.status(422).json({message: 'Error amount limit is 30'});
         }
         if (!isValidRegion(region)) {
-            throw new HttpException(400, 'Invalid or unsupported region');
+            return res.status(400).json({message: 'Invalid or unsupported region'});
         }
 
         const response = await axios.get(
@@ -130,7 +130,7 @@ router.get('/generate-data', async (req: Request, res: Response, next: NextFunct
         }
         res.json(users)
     } catch (error) {
-        next(error)
+        next(error);
     }
 });
 

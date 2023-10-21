@@ -1,5 +1,5 @@
-import express, { Express } from 'express'
-import cors from 'cors';
+import express, { Express, Response, Request, NextFunction } from 'express'
+import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import swaggerUi from 'swagger-ui-express'
@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000
 
 const v1Router = express.Router()
 
-const allowedOrigins = [process.env.ORIGIN1, process.env.ORIGIN2];
+const allowedOrigins = [process.env.ORIGIN1, process.env.ORIGIN2]
 
 app.use(
     cors({
@@ -38,6 +38,12 @@ app.use(
         },
     }),
 )
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.setHeader('Content-Type', 'application/json')
+    next()
+})
+
 v1Router.use('/users', authenticateToken, userRouter)
 v1Router.use('/auth', authRouter)
 

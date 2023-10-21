@@ -1,5 +1,5 @@
 import { body } from 'express-validator'
-import { SupportedNats } from '../enums/nat'
+import { SupportedNats } from '../enums/supportedNats'
 
 export const editUsersValidator = [
     body('userIds', 'Invalid does not Empty').not().isEmpty(),

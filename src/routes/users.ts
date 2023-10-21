@@ -6,6 +6,7 @@ import { deleteUserValidator, editUsersValidator, isValidRegion } from '../valid
 import { validationResult } from 'express-validator';
 import { generateErrors } from '../services/users';
 import { RandomUser } from '../interfaces/randomUser';
+import HttpException from '../exceptions/http-exception';
 
 const router: Router = express.Router()
 const RANDOMUSER_API_URL: string = 'https://randomuser.me/api/'
@@ -91,6 +92,9 @@ router.get('/generate-data', async (req: Request, res: Response, next: NextFunct
     }
 
     try {
+        if (parseInt(errors) > 30) {
+            throw new HttpException(422, 'Error limit is 30')
+        }
         if (isValidRegion(region)) {
             return res
                 .status(400)

@@ -92,7 +92,7 @@ router.get('/generate-data', async (req: Request, res: Response, next: NextFunct
     }
 
     try {
-        if (parseInt(errors) > 10) {
+        if (parseInt(errors) > 11) {
             return res.status(422).json({message: 'Error amount limit is 10'});
         }
         if (!isValidRegion(region)) {

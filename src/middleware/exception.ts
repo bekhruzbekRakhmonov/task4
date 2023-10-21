@@ -8,14 +8,14 @@ export function exceptionFilter(
     res: Response,
     next: NextFunction,
 ) {
-    res.setHeader('Content-Type', 'application/json');
+    const resp = res.setHeader('Content-Type', 'application/json');
     if (err instanceof HttpException) {
-        res.status(err.statusCode).json({
+        resp.status(err.statusCode).json({
             status: 'error',
             message: err.message,
         })
     } else {
-        res.status(500).json({
+        resp.status(500).json({
             status: 'error',
             message: 'Internal Server Error',
         })

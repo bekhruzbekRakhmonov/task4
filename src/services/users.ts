@@ -204,8 +204,10 @@ async function generateErrors(
         const errorType = Math.floor(seededRandom(seed + i.toString()) * 3)
 
         if (errorType === 0) {
-            modifiedName = deleteRandomCharacter(modifiedName)
-            modifiedAddress = deleteRandomCharacter(modifiedAddress)
+            if (modifiedAddress.length > 3 && modifiedName.length > 3) {
+                modifiedName = deleteRandomCharacter(modifiedName)
+                modifiedAddress = deleteRandomCharacter(modifiedAddress)
+            }
         } else if (errorType === 1) {
             modifiedName = addRandomCharacter(modifiedName)
             modifiedAddress = addRandomCharacter(modifiedAddress)

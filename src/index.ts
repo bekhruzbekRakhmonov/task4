@@ -27,6 +27,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan('tiny'))
 app.use(express.static('public'))
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.setHeader('Content-Type', 'application/json')
+    next()
+})
 app.use(exceptionFilter)
 
 app.use(
@@ -38,11 +42,6 @@ app.use(
         },
     }),
 )
-
-app.use((req: Request, res: Response, next: NextFunction) => {
-    res.setHeader('Content-Type', 'application/json')
-    next()
-})
 
 v1Router.use('/users', authenticateToken, userRouter)
 v1Router.use('/auth', authRouter)

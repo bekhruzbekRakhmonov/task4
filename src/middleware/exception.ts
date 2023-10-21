@@ -8,6 +8,7 @@ export function exceptionFilter(
     res: Response,
     next: NextFunction,
 ) {
+    res.setHeader('Content-Type', 'application/json');
     if (err instanceof HttpException) {
         res.status(err.statusCode).json({
             status: 'error',
